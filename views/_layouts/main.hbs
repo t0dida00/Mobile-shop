@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap 4 Example</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+
+</head>
+
+<body>
+
+  {{> nav}}
+  <div class="container-fluid mt-4">
+    <div class="row">
+      {{!-- <div class="col-sm-3">
+        <div class="card">
+          <h5 class="card-header">Featured</h5>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <h5 class="card-header">Featured</h5>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div> --}}
+
+      {{{body}}}
+
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js">
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable({
+        "ordering": false,
+        "pageLength": 5,
+        "lengthChange": false
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function () {
+      $('#example1').DataTable({
+         "order": [[0, "asc"]],
+        "pageLength": 10,
+        "lengthChange": true,
+       
+      });
+    });
+  </script>
+  <script>
+    $(".delete").click(function () {
+
+      var origin_string = $(this).val();
+      var split_string = origin_string.split("-");
+      document.getElementById("Cate_Name").innerText = split_string[1]
+      console.log(split_string)
+      $('#txtCatID').val(split_string[0])
+    });
+  </script>
+</body>
+
+</html>
