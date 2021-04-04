@@ -1,0 +1,103 @@
+<div class="col-sm-12 d-flex justify-content-center ">
+    <div class="card">
+        <div class="card-header">
+            <h4>Edit Product Information</h4>
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                <div class="form-row">
+                    <div class="col-md-4 mb-3"></div>
+                    <div class="col-md-4 mb-3">
+                        <input type="hidden" id="product_id" name="product_id" value="{{this.products.product_id}}">
+                        <div class="input-group">
+                            <img id="blah" src="/public/images/{{this.products.product_image}}"
+                                style="max-width:180px;" />
+                            <input type='file' onchange="readURL(this);" id="product_image" name="product_image"
+                               title="" style="color: transparent; text-align:center" />
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-8 mb-6">
+                        <label for="productname">Product Name</label>
+                        <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Name"
+                            value="{{this.products.product_name}}" required>
+                    </div>
+                    <div class="col-md-4 mb-6">
+                        <label for="productprice">Product Price</label>
+                        <input type="number" class="form-control" id="product_price" name="product_price"
+                            placeholder="Price" value="{{this.products.product_price}}" required>
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="productbrand">Brand</label>
+                        <select class="custom-select" id="product_brand_id" name="product_brand_id" required>
+                            <option value="{{this.products.product_brand_id}}">{{this.products.brand_name}}</option>
+                            {{#each this.brands}}
+                            <option value="{{brand_id}}">{{brand_name}}</option>
+                            {{/each}}
+                        </select>
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="productcategory">Category</label>
+                        <select class="custom-select" required id="product_category_id" name="product_category_id">
+                            <option value="{{this.products.product_category_id}}">{{this.products.category_name}}
+                            </option>
+                            {{#each this.categories}}
+                            <option value="{{category_id}}">{{category_name}}</option>
+                            {{/each}}
+                        </select>
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="storage">Storage</label>
+                        <input type="number" class="form-control" id="product_storage" name="product_storage"
+                            placeholder="Storage" value="{{this.products.product_storage}}" required>
+
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="description">Descripton</label>
+                        <textarea class="form-control" id="product_description" placeholder="Descripton"
+                            name="product_description" row="4" style="height:200px">{{this.products.product_description}} </textarea>
+                    </div>
+
+                </div>
+                <input type="hidden" id="product_quantity" name="product_quantity" value=0>
+                <a class="btn btn-success" href="/admin/products" role="button" title="Back to List">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                </a>
+                <button type="submit" class="btn btn-primary" formaction="/admin/products/update">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Save
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            Footer
+        </div>
+    </div>
+</div>
+<script>
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    }
+</script>

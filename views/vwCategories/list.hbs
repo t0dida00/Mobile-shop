@@ -1,0 +1,93 @@
+<div class="col-sm-12 d-flex justify-content-center ">
+   
+  <div class="card col-4">
+     {{#if this.err}}
+    <div class="alert alert-danger text-center" role="alert">
+      {{err}}
+    </div>
+    {{/if}}
+      {{#if this.success}}
+    <div class="alert alert-success text-center" role="alert">
+      {{success}}
+    </div>
+    {{/if}}
+    <div class="card-header d-flex justify-content-between">
+      <h4>Categories</h4>
+      <a class="btn btn-outline-success" href="/admin/categories/add" role="button">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Add Categories
+      </a>
+    </div>
+    {{#if this.empty}}
+    <div class="card-body">
+      <p class="card-text">Không có dữ liệu.</p>
+    </div>
+    {{else}}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center">#</th>
+          <th scope="col">Category</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.categories}}
+        <tr>
+          <th scope="row" class="text-center">{{category_id}}</th>
+          <td>{{category_name}}</td>
+          <td class="text-right">
+            <a class="btn btn-primary btn-sm" href="/admin/categories/edit/{{category_id}}" role="button"
+              title="Edit Category">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            {{!-- <a class="btn btn-danger btn-sm" href="/admin/categories/delete/{{category_id}}" role="button"
+              title="Delete Category">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a> --}}
+            <button type="button" class="btn btn-danger btn-sm delete" data-toggle="modal" data-target="#exampleModal" title="Delete Category"  value="{{category_id}}-{{category_name}}">
+               <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+    <div class="card-footer text-muted">
+      Footer
+    </div>
+  </div>
+</div>
+ <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form method="POST" action="/admin/categories/del">
+      <div class="modal-body">
+       Do you want to delete <span id="Cate_Name" style="font-weight: bold;"> </span> out of list ?
+      
+    
+        <input type="hidden" class="form-control" id="txtCatID" name="category_id" value="" >
+
+      {{!-- <button type="submit" class="btn btn-danger" title="Remove Category" formaction="/admin/categories/del">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button> --}}
+   
+      </div>
+      <div class="modal-footer">
+         <a class="btn btn-success" href="/admin/categories" role="button" title="Back to List">No </a>
+        <button type="submit" class="btn btn-primary" title="Remove Category" formaction="/admin/categories/del">Yes</button>
+      </div>
+       </form>
+    </div>
+  </div>
+</div> 
+

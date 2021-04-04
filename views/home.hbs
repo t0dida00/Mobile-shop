@@ -1,0 +1,251 @@
+
+  <div class="col-sm-3">
+    <div class="card bg-primary h-100">
+      <div class="card-body text-center">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text" style="font-size: 30px; font-weight:bold">0</p>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card bg-success h-100">
+      <div class="card-body text-center">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text" style="font-size: 30px; font-weight:bold">0</p>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 ">
+    <div class="card bg-warning h-100">
+      <div class="card-body text-center">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text" style="font-size: 30px; font-weight:bold">0</p>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 ">
+    <div class="card bg-danger h-100">
+      <div class="card-body text-center">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text" style="font-size: 30px; font-weight:bold">0</p>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+</div>
+<div class="row" style="height: auto;">
+  <div class="col-6">
+    <canvas id="myChart"></canvas>
+
+  </div>
+  <div class="col-6">
+    <canvas id="myChart1"></canvas>
+  </div>
+</div>
+{{!-- <div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">4</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+
+      <tr>
+        <th scope="row">5</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">6</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+    </tbody>
+  </table>
+</div> --}}
+<div class="container text-center">
+  <p> Following orders</p>
+</div>
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+               <th>#</th>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Total</th>
+                <th>Payment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+                 <td>$320,800</td>
+            </tr>
+           
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+                 <td>$320,800</td>
+            </tr>
+             <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+                 <td>$320,800</td>
+            </tr>
+             <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+                 <td>$320,800</td>
+            </tr>
+             <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+                 <td>$320,800</td>
+            </tr>
+             <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+                 <td>$320,800</td>
+            </tr>
+       
+        </tbody>
+      
+    </table>
+  
+<script>
+  var ctx = document.getElementById('myChart');
+
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      "labels": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      "datasets": [{ "label": "Profit", "data": [65, 59, 80, 81, 56, 55, 40, 42, 43, 65, 88, 222], "fill": false, "borderColor": "rgb(75, 192, 192)", "lineTension": 0 }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Profit",
+        fontSize: 25
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          ticks: {
+            beginAtZero: true   // minimum value will be 0.
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Thoundsand USD'
+          },
+        }]
+      }
+
+    }
+  });
+
+  var ctx1 = document.getElementById('myChart1');
+
+  var myLineChart1 = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      "labels": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      "datasets": [{
+        "label": "",
+        "data": [65, 59, 80, 81, 56, 55, 40, 42, 43, 65, 88, 22],
+        "fill": false, "borderColor": "rgb(255, 16, 0)",
+        "lineTension": 0
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "The number of orders",
+        fontSize: 25
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          ticks: {
+            beginAtZero: true   // minimum value will be 0.
+
+          }
+        }]
+      }
+
+    }
+  });
+
+</script>
