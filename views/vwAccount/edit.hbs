@@ -1,0 +1,43 @@
+<div class="col-sm-12 d-flex justify-content-center ">
+<div class="card">
+  <div class="card-header">
+    <h4>Update user information</h4>
+  </div>
+  <div class="card-body">
+    <form method="POST">
+      <div class="form-group">
+        <label for="txtCatID">#</label>
+        <input type="text" class="form-control" id="txtCatID" name="user_id" readonly value="{{this.account.user_id}}">
+      </div>
+      <div class="form-group">
+        <label for="txtCatName">Staff Name</label>
+        <input type="text" class="form-control" id="txtCatName" name="staff_name" autofocus
+          value="{{this.account.staff_name}}" required>
+      </div>
+       <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" id="phone" name="phone" autofocus
+          value="{{this.account.phone}}" required>
+      </div>
+       <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" autofocus
+          value="{{this.account.email}}" required>
+      </div>
+      <a class="btn btn-success" href="/admin/accounts" role="button" title="Back to List">
+        <i class="fa fa-backward" aria-hidden="true"></i>
+      </a>
+      {{!-- <button type="submit" class="btn btn-danger" title="Remove Category" formaction="/admin/categories/del">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button> --}}
+      <button type="submit" class="btn btn-primary" formaction="/admin/accounts/update">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
+    </form>
+  </div>
+  <div class="card-footer text-muted">
+    Footer
+  </div>
+</div>
+</div>

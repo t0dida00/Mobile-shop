@@ -42,7 +42,7 @@ app.use('/', require('./routes/account.route'));
 app.use(function(req,res,next){
  
   res.locals.user= req.session.authUser;
-  
+  res.locals.admin=req.session.admin;
   next();
   
 })
@@ -84,6 +84,7 @@ app.use('/admin/products', require('./routes/product.route'));
 app.use('/admin/orders', require('./routes/order.route'));
 app.use('/admin/customers', require('./routes/customer.route'));
 app.use('/admin/brands', require('./routes/brand.route'));
+app.use('/admin/accounts', require('./routes/admin.route'));
 
 
 

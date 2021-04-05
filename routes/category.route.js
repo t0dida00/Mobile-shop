@@ -23,7 +23,15 @@ router.get('/add', function (req, res) {
 })
 
 router.post('/add', async function (req, res) {
+  const name = req.body.category_name
+  const check= await categoryModel.available(name)
 
+  if(check.length !== 0)
+  {
+    req.session.err="Add new category fail because this name is available !"
+   return res.redirect('/admin/categories');
+  }
+  
   await categoryModel.add(req.body);
   req.session.success="Add new category successfully !"
   res.redirect('/admin/categories');
@@ -55,6 +63,16 @@ router.post('/del', async function (req, res) {
 })
 
 router.post('/update', async function (req, res) {
+  
+  const name = req.body.category_name
+  const check= await categoryModel.available(name)
+
+  if(check.length !== 0)
+  {
+    req.session.err="Update category information fail because this name is available !"
+   return res.redirect('/admin/categories');
+  }
+
   await categoryModel.patch(req.body);
   req.session.success="Update category information successfully !"
   res.redirect('/admin/categories');

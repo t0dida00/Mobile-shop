@@ -1,5 +1,5 @@
 var db = require('../utils/db');
-
+const TBL_CATEGORIES = 'users';
 module.exports = {
   all: () => {
     return db.load('select * from users');
@@ -21,7 +21,20 @@ module.exports = {
     return db.update('users', 'user_id', entity);
   },
 
-  delete: id => {
-    return db.delete('users', 'user_id', id);
+  del: function (id) {
+    
+    const condition = {
+      user_id: id
+    }
+   
+    return db.del(TBL_CATEGORIES, condition);
   },
+  patch: function (entity) {
+    const condition = {
+      user_id: entity.user_id
+    }
+
+    delete entity.user_id;
+    return db.patch(TBL_CATEGORIES, entity, condition);
+  }
 };
