@@ -1,6 +1,5 @@
 <div class="col-sm-12">
   <div class="card">
-   
     {{#if this.err}}
     <div class="alert alert-danger text-center" role="alert">
       {{err}}
@@ -12,10 +11,10 @@
     </div>
     {{/if}}
     <div class="card-header d-flex justify-content-between">
-      <h4>Brands</h4>
-      <a class="btn btn-outline-success" href="/admin/brands/add" role="button">
+      <h4>Accounts</h4>
+      <a class="btn btn-outline-success" href="/admin/accounts/add" role="button">
         <i class="fa fa-plus" aria-hidden="true"></i>
-        Add Brand
+        Register new user
       </a>
     </div>
     {{#if this.empty}}
@@ -26,22 +25,28 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col" class="text-center">#</th>
-          <th scope="col">Brands</th>
+          <th scope="col" class="text-center">ID</th>
+          <th scope="col">Username</th>
+          <th scope="col">Staff Name</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Email</th>
           <th scope="col">&nbsp;</th>
         </tr>
       </thead>
       <tbody>
-        {{#each this.brand}}
+        {{#each this.accounts}}
         <tr>
-          <th scope="row" class="text-center">{{brand_id}}</th>
-          <td>{{brand_name}}</td>
+          <th scope="row" class="text-center">{{user_id}}</th>
+          <td>{{username}}</td>
+          <td>{{staff_name}}</td>
+          <td>{{phone}}</td>
+          <td>{{email}}</td>
           <td class="text-right">
-            <a class="btn btn-primary btn-sm" href="/admin/brands/edit/{{brand_id}}" role="button" title="Edit product">
+            <a class="btn btn-primary btn-sm" href="/admin/accounts/edit/{{user_id}}" role="button" title="Edit product">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
             <button type="button" class="btn btn-danger btn-sm delete" data-toggle="modal" data-target="#exampleModal"
-              title="Delete Category" value="{{brand_id}}-{{brand_name}}">
+              title="Delete Category" value="{{user_id}}-{{username}}">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </td>
@@ -61,17 +66,17 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Delete account</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="POST" action="/admin/brands/del">
+      <form method="POST" action="/admin/accounts/del">
         <div class="modal-body">
           Do you want to delete <span id="Cate_Name" style="font-weight: bold;"> </span> out of list ?
 
 
-          <input type="hidden" class="form-control" id="txtCatID" name="brand_id" value="">
+          <input type="hidden" class="form-control" id="txtCatID" name="user_id" value="">
 
           {{!-- <button type="submit" class="btn btn-danger" title="Remove Category" formaction="/admin/categories/del">
             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -79,9 +84,9 @@
 
         </div>
         <div class="modal-footer">
-          <a class="btn btn-success" href="/admin/brands" role="button" title="Back to List">No </a>
+          <a class="btn btn-success" href="/admin/accounts" role="button" title="Back to List">No </a>
           <button type="submit" class="btn btn-primary" title="Remove Category"
-            formaction="/admin/brands/del">Yes</button>
+            formaction="/admin/accounts/del">Yes</button>
         </div>
       </form>
     </div>

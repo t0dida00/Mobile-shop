@@ -33,7 +33,7 @@ router.post('/login',async function(req,res){
       err:" Invalid username or password."
     })
   }
-  const hash = bcrypt.hashSync(req.body.password, 10);
+  //const hash = bcrypt.hashSync(req.body.password, 10);
 
  const check_pass= bcrypt.compareSync(req.body.password,user[0].password)
   if(check_pass === !true)
@@ -45,6 +45,10 @@ router.post('/login',async function(req,res){
     })
   }
   delete user[0].password
+  if(req.body.username === "admin")
+  {
+    req.session.admin=true;
+  }
   req.session.isAuthenticated=true;
   req.session.authUser=user[0];
 
@@ -52,21 +56,8 @@ router.post('/login',async function(req,res){
 
 })
 
-router.post('/register', async (req, res, next) => {
-    var hash = bcrypt.hashSync(req.body.password, config['authenticate'].saltRounds);
-   
 
-    var user = {
-      username: req.body.username,
-      password: hash,
-      staff_name: req.body.staffname,
-    }
 
-   
-  
-    await userModel.add(user) 
-    res.redirect('/admin/home');
-  })
   
   router.post('/logout', function(req, res){
     req.session.destroy()
