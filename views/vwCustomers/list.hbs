@@ -1,46 +1,66 @@
 <div class="col-sm-12">
-<div class="card">
-  <div class="card-header">
-    <h4>Customers</h4>
-    
+  <div class="card">
+    {{#if this.err}}
+    <div class="alert alert-danger text-center" role="alert">
+      {{err}}
+    </div>
+    {{/if}}
+    {{#if this.success}}
+    <div class="alert alert-success text-center" role="alert">
+      {{success}}
+    </div>
+    {{/if}}
+    <div class="card-header">
+      <h4>Customers</h4>
+
+    </div>
+    {{#if this.empty}}
+    <div class="card-body">
+      <p class="card-text">Không có dữ liệu.</p>
+    </div>
+    {{else}}
+    <table id="example1" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center">#</th>
+          <th scope="col">Last name</th>
+          <th scope="col">First name</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Email</th>
+          <th scope="col">Street</th>
+          <th scope="col">City</th>
+          <th scope="col">State</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        {{#each this.customers}}
+        <tr>
+          <th scope="row" class="text-center">{{customer_id}}</th>
+          <td>{{customer_lastname}}</td>
+          <td>{{customer_firstname}}</td>
+          <td>{{customer_phone}}</td>
+          <td>{{customer_mail}}</td>
+          <td>{{customer_street}}</td>
+          <td>{{customer_city}}</td>
+          <td>{{customer_state}}</td>
+          <td class="text-right">
+            <a class="btn btn-primary btn-sm" href="/admin/customers/edit/{{customer_id}}" role="button">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-success btn-sm" href="javascript:;" role="button">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
+    {{/if}}
+    <div class="card-footer text-muted">
+      Footer
+    </div>
   </div>
-  {{#if this.empty}}
-  <div class="card-body">
-    <p class="card-text">Không có dữ liệu.</p>
-  </div>
-  {{else}}
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col" class="text-center">#</th>
-        <th scope="col">Product</th>
-        <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each this.products}}
-      <tr>
-        <th scope="row" class="text-center">{{ProID}}</th>
-        <td>{{ProName}}</td>
-        <td>{{Price}}</td>
-        <td>{{Quantity}}</td>
-        <td class="text-right">
-          <a class="btn btn-primary btn-sm" href="javascript:;" role="button">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </a>
-          <a class="btn btn-danger btn-sm" href="javascript:;" role="button">
-            <i class="fa fa-trash" aria-hidden="true"></i>
-          </a>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{/if}}
-  <div class="card-footer text-muted">
-    Footer
-  </div>
-</div>
 </div>
