@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2021 at 01:32 PM
+-- Generation Time: Apr 06, 2021 at 08:01 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -120,15 +120,15 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `order_payment`) VALUES
-(1, 12, '2021-04-06', 'Processing ', 13),
-(2, 11, '2021-04-01', 'Moving and packaging time ', 5),
-(3, 9, '2021-04-08', 'Queue time in finished goods stocks', 4),
-(4, 7, '2021-03-31', 'Successful delivery', 10),
+(1, 12, '2021-04-06', 'Processing ', 3),
+(2, 11, '2021-04-01', 'Moving and packaging time ', 2),
+(3, 9, '2021-04-08', 'Queue time in finished goods stocks', 3),
+(4, 7, '2021-03-31', 'Successful delivery', 3),
 (5, 4, '2021-04-08', 'Successful delivery', 2),
-(6, 12, '2021-04-06', 'Processing ', 13),
-(7, 11, '2021-04-01', 'Moving and packaging time ', 5),
-(8, 9, '2021-04-08', 'Queue time in finished goods stocks', 4),
-(9, 7, '2021-03-31', 'Successful delivery', 10),
+(6, 12, '2021-04-06', 'Processing ', 2),
+(7, 11, '2021-04-01', 'Moving and packaging time ', 3),
+(8, 9, '2021-04-08', 'Queue time in finished goods stocks', 2),
+(9, 7, '2021-03-31', 'Successful delivery', 3),
 (10, 4, '2021-04-08', 'Successful delivery', 2);
 
 -- --------------------------------------------------------
@@ -183,20 +183,8 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`payment_id`, `payment_name`) VALUES
-(1, 'COD'),
 (2, 'Visa/ Mastercard'),
-(3, 'COD'),
-(4, 'COD'),
-(5, 'Visa/ Mastercard'),
-(6, 'Visa/ Mastercard'),
-(7, 'COD'),
-(8, 'COD'),
-(9, 'Visa/ Mastercard'),
-(10, 'COD'),
-(11, 'COD'),
-(12, 'Visa/ Mastercard'),
-(13, 'Visa/ Mastercard'),
-(14, 'COD');
+(3, 'COD');
 
 -- --------------------------------------------------------
 
