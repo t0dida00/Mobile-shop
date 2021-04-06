@@ -4,7 +4,7 @@
     "port": 3306,
     "user": "root",
     "password": "",
-    "database": "project",
+    "database": "project2",
     "connectionLimit": 50
   },
   "authenticate": {
