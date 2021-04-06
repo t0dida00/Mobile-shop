@@ -21,7 +21,14 @@ router.get('/add', function (req, res) {
 })
 
 router.post('/add', async function (req, res) {
+  const name = req.body.brand_name
+  const check= await brandModel.available(name)
 
+  if(check.length !== 0)
+  {
+    req.session.err="Add new brand fail because this name is available !"
+   return res.redirect('/admin/brands');
+  }
   await brandModel.add(req.body);
   req.session.success="Add new brand successfully !"
   res.redirect('/admin/brands');
@@ -53,7 +60,14 @@ router.post('/del', async function (req, res) {
 })
 
 router.post('/update', async function (req, res) {
+  const name = req.body.brand_name
+  const check= await brandModel.available(name)
 
+  if(check.length !== 0)
+  {
+    req.session.err="Update brand information fail because this name is available !"
+   return res.redirect('/admin/brands');
+  }
   await brandModel.patch(req.body);
   req.session.success="Update brand information successfully !"
   res.redirect('/admin/brands');

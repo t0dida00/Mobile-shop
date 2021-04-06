@@ -24,8 +24,13 @@ module.exports = {
     
     const condition = {
       category_id: id
-    }
-   
+    }  
     return db.del(TBL_CATEGORIES, condition);
+  },
+  available: function(name)
+  {
+    
+    return db.load(`select * from ${TBL_CATEGORIES} where category_name = "${name}"`);
   }
+  
 };

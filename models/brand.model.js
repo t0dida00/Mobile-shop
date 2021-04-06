@@ -27,5 +27,10 @@ module.exports = {
     }
    
     return db.del(TBL_CATEGORIES, condition);
+  },
+  available: function(name)
+  {
+    
+    return db.load(`select * from ${TBL_CATEGORIES} where brand_name = "${name}"`);
   }
 };
