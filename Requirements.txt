@@ -7,4 +7,5 @@ npm install chart.js --save
 npm install express-session
 npm install bcrypt
 npm install passport
- npm install passport-local
+npm install passport-local
+npm install --save cors

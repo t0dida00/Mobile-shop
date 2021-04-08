@@ -1,18 +1,33 @@
 const express = require('express');
-const productModel = require('../models/product.model');
+const orderModel = require('../models/order.model');
+var moment = require('moment');  
 
 const router = express.Router();
 
-// router.get('/', async function (req, res) {
-//   const list = await productModel.all();
-//   res.render('vwProducts/list', {
-//     products: list,
-//     empty: list.length === 0
-//   });
-// })
 
-router.get('/',function(req,res){
-    res.render('vwOrders/list');
+router.get('/',async function(req,res){
+    const list = await orderModel.all();
+ 
+ for(let i = 0; i < list.length; i++)
+{
+    list[i].order_date=moment(list[i].order_date).format('DD-MM-YYYY');
+}
+  res.render('vwOrders/list', {
+    orders: list,
+    empty: list.length === 0,
+    err:req.session.err,
+    success: req.session.success
+    
+  });
+  delete req.session.err
+  delete req.session.success
+})
+router.post('/detail', async function(req,res){
+   
+const order= await orderModel.single(req.body.order_id)
+
+res.send(JSON.stringify(order));
+
 })
 
 module.exports = router;

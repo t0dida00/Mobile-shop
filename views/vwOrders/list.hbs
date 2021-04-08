@@ -1,45 +1,197 @@
 <div class="col-sm-12">
-<div class="card">
-  <div class="card-header">
-    <h4>Orders</h4>
+  <div class="card">
+    {{#if this.err}}
+    <div class="alert alert-danger text-center" role="alert">
+      {{err}}
+    </div>
+    {{/if}}
+    {{#if this.success}}
+    <div class="alert alert-success text-center" role="alert">
+      {{success}}
+    </div>
+    {{/if}}
+    <div class="card-header d-flex justify-content-between">
+
+
+      <h4>Products</h4>
+
+    </div>
+    {{#if this.empty}}
+    <div class="card-body">
+      <p class="card-text">Không có dữ liệu.</p>
+    </div>
+    {{else}}
+    <table id="example2" class="table table-striped table-bordered table-hover" style="width:100%">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center">Order ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Date</th>
+          <th scope="col">Total</th>
+          <th scope="col">Status</th>
+          <th scope="col">Payment</th>
+
+          <th scope="col">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.orders}}
+        <tr>
+          <th scope="row" class="text-center">{{order_id}}</th>
+
+          <td class="name_customer" style="cursor: pointer;"><a
+              href="/admin/orders/?query={{customer_lastname}} {{customer_firstname}} {{customer_phone}}"
+              style="text-decoration: none; color:black">{{customer_lastname}} {{customer_firstname}}</a></td>
+          <td>{{customer_phone}}</td>
+          <td>{{order_date}}</td>
+          <td>{{Total}}</td>
+          <td>{{order_status}}</td>
+          <td>{{payment_name}}</td>
+
+
+
+          <td class="text-right">
+
+            <button type="button" class="btn btn-primary btn-sm order_detail" data-toggle="modal"
+              data-target="#order_detail_Modal" title="Order detail" value="{{order_id}}">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-danger btn-sm delete" data-toggle="modal" data-target="#order_Modal"
+              title="Delete Category" value="{{order_id}}-{{order_id}}">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
+
+    {{/if}}
+    <div class="card-footer text-muted">
+      Footer
+    </div>
   </div>
-  {{#if this.empty}}
-  <div class="card-body">
-    <p class="card-text">Không có dữ liệu.</p>
-  </div>
-  {{else}}
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col" class="text-center">#</th>
-        <th scope="col">Product</th>
-        <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each this.products}}
-      <tr>
-        <th scope="row" class="text-center">{{ProID}}</th>
-        <td>{{ProName}}</td>
-        <td>{{Price}}</td>
-        <td>{{Quantity}}</td>
-        <td class="text-right">
-          <a class="btn btn-primary btn-sm" href="javascript:;" role="button">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </a>
-          <a class="btn btn-danger btn-sm" href="javascript:;" role="button">
+</div>
+
+<div class="modal fade" id="order_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="/admin/categories/del">
+        <div class="modal-body">
+          Do you want to delete Order_ID: <span id="Cate_Name" style="font-weight: bold;"></span> out of list ?
+
+
+          <input type="hidden" class="form-control" id="txtCatID" name="product_id" value="">
+
+          {{!-- <button type="submit" class="btn btn-danger" title="Remove Category" formaction="/admin/categories/del">
             <i class="fa fa-trash" aria-hidden="true"></i>
-          </a>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{/if}}
-  <div class="card-footer text-muted">
-    Footer
+          </button> --}}
+
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-success" href="/admin/orders" role="button" title="Back to List">No </a>
+          <button type="submit" class="btn btn-primary" title="Remove Category"
+            formaction="/admin/orders/del">Yes</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
+
+
+
+<div class="modal fade" id="order_detail_Modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order detail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col">Image</th>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Total</th>
+              <th scope="col">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody id="body">
+
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <p class="text-left" style="font-weight: bold;">Total:</p>
+        <p id="Total" style="font-weight: bold;"></p>
+
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
+{{#section 'scripts'}}
+
+<script>
+  $(".order_detail").click(function (e) {
+    e.preventDefault();
+
+    var order_id = $(this).val();
+
+    $.ajax({
+      type: "POST",
+      url: '/admin/orders/detail',
+      data: { order_id: order_id },
+      success: function (result) {
+        $("#body").empty();
+        var total = 0;
+        var data = JSON.parse(result)
+        for (let i = 0; i < data.length; i++) {
+          total = parseInt(data[i].Total) + total;
+          $("#body").append(`<tr>
+              <th scope="row" class="text-center" >${i + 1}</th>
+                <td><img src="../../public/images/${data[i].product_image}" style="height: 100px;"></td>
+              <td>${data[i].product_name}</td>
+               <td>${data[i].product_price}</td>
+              <td>${data[i].quantity}</td>
+               <td>${data[i].Total}</td>
+              {{!-- <td class="text-right">
+                 <button type="button" class="btn btn-success btn-sm order_item" data-toggle="modal" data-target=".bd-example-modal-lg2"
+              value="${data[i].order_id}">
+            <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            </button> --}}
+             
+              </td>
+            </tr>`)
+
+        }
+
+        $("#Total").html(total)
+
+      }
+    });
+  });
+
+
+
+</script>
+
+{{/section}}

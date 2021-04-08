@@ -19,7 +19,7 @@
       <p class="card-text">Không có dữ liệu.</p>
     </div>
     {{else}}
-    <table id="example1" class="table table-striped table-bordered" style="width:100%">
+    <table id="example1" class="table table-striped table-bordered table-hover" style="width:100%">
       <thead>
         <tr>
           <th scope="col" class="text-center">#</th>
@@ -29,7 +29,7 @@
           <th scope="col">Email</th>
           <th scope="col">Street</th>
           <th scope="col">City</th>
-          <th scope="col">State</th>
+          <th scope="col">Province</th>
           <th scope="col">&nbsp;</th>
         </tr>
 
@@ -46,11 +46,16 @@
           <td>{{customer_city}}</td>
           <td>{{customer_state}}</td>
           <td class="text-right">
-            <a class="btn btn-primary btn-sm" href="/admin/customers/edit/{{customer_id}}" role="button">
+            <a class="btn btn-primary btn-sm " href="/admin/customers/edit/{{customer_id}}" role="button">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <a class="btn btn-success btn-sm" href="javascript:;" role="button">
-            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+
+            {{!-- <button type="button" class="btn btn-success btn-sm shoppingcart" data-toggle="modal"
+              data-target=".bd-example-modal-lg" value="{{customer_lastname}} {{customer_fisrtname}}">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </button> --}}
+            <a class="btn btn-success btn-sm shoppingcart" href="/admin/orders/?query={{customer_lastname}} {{customer_firstname}} {{customer_phone}}" role="button">
+               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
             </a>
           </td>
         </tr>
@@ -64,3 +69,78 @@
     </div>
   </div>
 </div>
+
+
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Total orders</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col">Date</th>
+              <th scope="col">Total</th>
+              <th scope="col">Status</th>
+              <th scope="col">Payment</th>
+              <th scope="col">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody id="body">
+
+
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{{!-- <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Total orders</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col">Date</th>
+              <th scope="col">Total</th>
+              <th scope="col">Status</th>
+              <th scope="col">Payment</th>
+              <th scope="col">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody id="body">
+
+
+
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> --}}

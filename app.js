@@ -2,7 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 var hbs_sections = require('express-handlebars-sections');
 const session=require("express-session")
-
+const cors = require('cors');
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(require('flash')());
 app.use(express.urlencoded({
   extended: true
 }));
-
+app.use(express.json());
 
 app.engine('hbs', exphbs({
   layoutsDir: 'views/_layouts',
@@ -58,7 +58,7 @@ app.use(function(req,res,next){
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   next();
 })
-
+app.use(cors());
 
 app.get('/admin/home', function (req, res) {
   
@@ -85,6 +85,7 @@ app.use('/admin/orders', require('./routes/order.route'));
 app.use('/admin/customers', require('./routes/customer.route'));
 app.use('/admin/brands', require('./routes/brand.route'));
 app.use('/admin/accounts', require('./routes/admin.route'));
+app.use('/admin/orders', require('./routes/order.route'));
 
 
 
