@@ -30,4 +30,10 @@ res.send(JSON.stringify(order));
 
 })
 
+router.post('/del', async function (req, res) {
+ 
+ await orderModel.del(req.body.order_id);
+ req.session.success="Delete order successfully !"
+ res.redirect('/admin/orders/');
+})
 module.exports = router;

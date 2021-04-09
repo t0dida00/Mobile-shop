@@ -4,7 +4,7 @@ const TBL_CATEGORIES = 'orders';
 
 module.exports = {
   all: function () {
-    return db.load(`SELECT orders.*, payment_name,customer_lastname, customer_firstname,customer_phone,
+    return db.load(`SELECT orders.*, payment_name,customers.*,
     Sum(products.product_price * order_items.quantity) AS Total
     FROM ${TBL_CATEGORIES}
     INNER JOIN payments ON orders.order_payment = payments.payment_id

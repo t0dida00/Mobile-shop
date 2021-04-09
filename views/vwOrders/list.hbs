@@ -13,7 +13,7 @@
     <div class="card-header d-flex justify-content-between">
 
 
-      <h4>Products</h4>
+      <h4>Orders</h4>
 
     </div>
     {{#if this.empty}}
@@ -85,12 +85,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="POST" action="/admin/categories/del">
+      <form method="POST" action="/admin/orders/del">
         <div class="modal-body">
           Do you want to delete Order_ID: <span id="Cate_Name" style="font-weight: bold;"></span> out of list ?
 
 
-          <input type="hidden" class="form-control" id="txtCatID" name="product_id" value="">
+          <input type="hidden" class="form-control" id="txtCatID" name="order_id" value="">
 
           {{!-- <button type="submit" class="btn btn-danger" title="Remove Category" formaction="/admin/categories/del">
             <i class="fa fa-trash" aria-hidden="true"></i>
