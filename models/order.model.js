@@ -48,11 +48,24 @@ INNER JOIN payments ON orders.order_payment = payments.payment_id
 INNER JOIN order_items ON order_items.order_id = orders.order_id
 INNER JOIN products ON products.product_id = order_items.product_id
 WHERE customer_id = ${customer_id} GROUP  BY orders.order_id `);
+  },
+
+  getValueforChart: function(){
+    return db.load(`SELECT
+    DISTINCT(substring(order_date,1,7)) AS DataDate,
+    Sum(products.product_price * order_items.quantity) AS Total
+     FROM ${TBL_CATEGORIES}
+     INNER JOIN order_items ON order_items.order_id = orders.order_id
+     INNER JOIN products ON products.product_id = order_items.product_id
+      GROUP  BY  DataDate
+     ORDER BY DataDate ASC`)
+  },
+  getValueforOrderChart: function(){
+    return db.load(`SELECT
+    (substring(order_date,1,7)) AS DataDate,
+    COUNT(*) AS Value
+      FROM  ${TBL_CATEGORIES}
+      GROUP by DataDate`)
   }
   
 };
-// select  from ${TBL_CATEGORIES}
-//             INNER JOIN payments ON orders.order_payment= payments.payment_id
-//             INNER JOIN order_items ON order_items.order_id=orders.order_id
-//             INNER JOIN products ON products.product_id=order_items.product_id
-//             where customer_id = ${customer_id}

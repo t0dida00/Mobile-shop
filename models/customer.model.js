@@ -31,6 +31,10 @@ module.exports = {
   {
     
     return db.load(`select * from ${TBL_CATEGORIES} where customer_id_name = "${name}"`);
+  },
+  countCustomer: function()
+  {
+    return db.load(`select  count( DISTINCT customer_phone ) as Total_customer from ${TBL_CATEGORIES} `);
   }
   
 };
