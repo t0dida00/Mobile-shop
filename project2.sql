@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2021 at 10:42 AM
+-- Generation Time: Apr 10, 2021 at 10:51 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -120,30 +120,30 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `order_payment`) VALUES
-(1, 12, '2021-04-06', 'Processing ', 3),
-(2, 11, '2021-04-01', 'Moving and packaging time ', 2),
+(1, 12, '2020-10-03', 'Processing ', 3),
+(2, 11, '2020-11-10', 'Moving and packaging time ', 2),
 (3, 9, '2021-04-08', 'Queue time in finished goods stocks', 3),
-(4, 7, '2021-03-31', 'Successful delivery', 3),
-(5, 4, '2021-04-08', 'Successful delivery', 2),
-(6, 12, '2021-04-06', 'Processing ', 2),
-(7, 11, '2021-04-01', 'Moving and packaging time ', 3),
-(8, 9, '2021-04-08', 'Queue time in finished goods stocks', 2),
-(9, 7, '2021-03-31', 'Successful delivery', 3),
-(10, 4, '2021-04-08', 'Successful delivery', 2),
-(11, 1, '2021-05-05', 'Processing ', 2),
-(12, 2, '2021-04-05', 'Moving and packaging time ', 2),
-(13, 3, '2021-04-08', 'Queue time in finished goods stocks', 3),
-(14, 5, '2021-04-07', 'Successful delivery', 2),
-(15, 6, '2021-04-09', 'Successful delivery', 3),
-(16, 8, '2021-04-23', 'Moving and packaging time ', 3),
-(17, 10, '2021-04-30', 'Moving and packaging time ', 2),
-(18, 1, '2021-05-05', 'Processing ', 2),
-(19, 2, '2021-04-05', 'Moving and packaging time ', 2),
-(20, 3, '2021-04-08', 'Queue time in finished goods stocks', 3),
-(21, 5, '2021-04-07', 'Successful delivery', 2),
+(4, 7, '2020-12-09', 'Successful delivery', 3),
+(5, 4, '2021-02-09', 'Successful delivery', 2),
+(6, 12, '2020-11-20', 'Processing ', 2),
+(7, 11, '2020-11-13', 'Moving and packaging time ', 3),
+(8, 9, '2021-01-06', 'Queue time in finished goods stocks', 2),
+(9, 7, '2021-01-07', 'Successful delivery', 3),
+(10, 4, '2020-12-11', 'Successful delivery', 2),
+(11, 1, '2021-01-14', 'Processing ', 2),
+(12, 2, '2021-01-14', 'Moving and packaging time ', 2),
+(13, 3, '2020-12-16', 'Queue time in finished goods stocks', 3),
+(14, 5, '2021-02-11', 'Successful delivery', 2),
+(15, 6, '2021-01-13', 'Successful delivery', 3),
+(16, 8, '2021-03-02', 'Moving and packaging time ', 3),
+(17, 10, '2020-09-23', 'Moving and packaging time ', 2),
+(18, 1, '2021-01-07', 'Processing ', 2),
+(19, 2, '2021-01-13', 'Moving and packaging time ', 2),
+(20, 3, '2020-11-26', 'Queue time in finished goods stocks', 3),
+(21, 5, '2021-03-16', 'Successful delivery', 2),
 (22, 6, '2021-04-09', 'Successful delivery', 3),
-(23, 8, '2021-04-23', 'Moving and packaging time ', 3),
-(24, 10, '2021-04-30', 'Moving and packaging time ', 2);
+(23, 8, '2021-01-12', 'Moving and packaging time ', 3),
+(24, 10, '2020-08-05', 'Moving and packaging time ', 2);
 
 -- --------------------------------------------------------
 
@@ -408,7 +408,7 @@ ALTER TABLE `orders`
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `FK_OrderItem_Order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+  ADD CONSTRAINT `FK_OrderItem_Order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_OrderItem_Product` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
 
 --
