@@ -56,8 +56,8 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="storage">Storage</label>
-                        <input type="number" class="form-control" id="product_storage" name="product_storage"
-                            placeholder="Storage" value="{{this.products.product_storage}}" required>
+                        <input type="number" class="form-control" id="product_quantity" name="product_quantity"
+                            placeholder="Storage" value="{{this.products.product_quantity}}" required>
 
                     </div>
 
@@ -70,7 +70,7 @@
                     </div>
 
                 </div>
-                <input type="hidden" id="product_quantity" name="product_quantity" value=0>
+                <input type="hidden" id="product_sell" name="product_sell" value= {{this.products.product_sell}}>
                 <a class="btn btn-success" href="/admin/products" role="button" title="Back to List">
                     <i class="fa fa-backward" aria-hidden="true"></i>
                 </a>

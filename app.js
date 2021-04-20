@@ -35,36 +35,48 @@ app.engine('hbs', exphbs({
   }
 }));
 app.set('view engine', 'hbs');
+app.use('/public', express.static('./public'))
 
-
-
-app.use('/', require('./routes/account.route'));
-
-
-app.use(function(req,res,next){
+const otherModel = require('./models/other.model');
+app.use(async function(req,res,next){
  
-  res.locals.user= req.session.authUser;
-  res.locals.admin=req.session.admin;
+  const category_list=await otherModel.getCategory();
+  const brand_list=await otherModel.getBrand();
+  res.locals.lcBrands=brand_list;
+  res.locals.lcCategories=category_list;
+
   next();
   
 })
 
+app.use('/', require('./routes/client.route'));
 
-app.use(function(req,res,next){
+// app.use('/', require('./routes/account.route'));
+
+
+// app.use(function(req,res,next){
+ 
+//   res.locals.user= req.session.authUser;
+//   res.locals.admin=req.session.admin;
+
+//   next();
   
-  if(!req.session.isAuthenticated)
-  {
+// })
 
-    return res.redirect("/login")
-  }
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  next();
-})
+
+// app.use(function(req,res,next){
+  
+//   if(!req.session.isAuthenticated)
+//   {
+
+//     return res.redirect("/admin/login")
+//   }
+//   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+//   next();
+// })
 app.use(cors());
 
 app.get('/admin/home', function (req, res) {
-  
-  
   
   res.render('home');
 })
@@ -80,7 +92,7 @@ app.get('/bs', function (req, res) {
 })
 
 // app.use(express.static('public'));
-app.use('/public', express.static('public'))
+
 app.use('/admin/categories', require('./routes/category.route'));
 app.use('/admin/products', require('./routes/product.route'));
 app.use('/admin/orders', require('./routes/order.route'));
@@ -88,7 +100,7 @@ app.use('/admin/customers', require('./routes/customer.route'));
 app.use('/admin/brands', require('./routes/brand.route'));
 app.use('/admin/accounts', require('./routes/admin.route'));
 app.use('/admin/orders', require('./routes/order.route'));
-
+app.use('/admin/other', require('./routes/other.route'));
 
 
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const customerModel = require('../models/customer.model');
-
+const otherModel = require('../models/other.model');
 const router = express.Router();
 
 router.get('/', async function (req, res) {
@@ -20,12 +20,15 @@ router.get('/edit/:id', async function (req, res) {
     // const id = +req.query.id || -1;
     const id = +req.params.id || -1;
   
+    const state_list = await otherModel.getState();
+    
     const rows = await customerModel.single(id);
     if (rows.length === 0)
       return res.send('Invalid parameter.');
   
     const customer = rows[0];
-    res.render('vwCustomers/edit', { customer });
+  
+    res.render('vwCustomers/edit', { customer,state_list });
   })
 
   router.post('/update', async function (req, res) {

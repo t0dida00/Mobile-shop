@@ -12,6 +12,7 @@ router.get('/',async function(req,res){
  for(let i = 0; i < list.length; i++)
 {
     list[i].order_date=moment(list[i].order_date).format('DD-MM-YYYY');
+    list[i].order_estimated_date=moment(list[i].order_estimated_date).format('DD-MM-YYYY');
 }
   res.render('vwOrders/list', {
     orders: list,

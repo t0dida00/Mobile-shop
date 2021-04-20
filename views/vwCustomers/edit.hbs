@@ -1,63 +1,113 @@
 <div class="col-sm-12 d-flex justify-content-center ">
-<div class="card">
-  <div class="card-header">
-    <h4>Edit customer information</h4>
-  </div>
-  <div class="card-body">
-    <form method="POST">
-      <div class="form-group">
-        <label for="txtCatID">#</label>
-        <input type="text" class="form-control" id="txtCatID" name="customer_id" readonly value="{{this.customer.customer_id}}">
-      </div>
-      <div class="form-group">
-        <label for="">First name</label>
-        <input type="text" class="form-control" id="" name="customer_firstname" autofocus
-          value="{{this.customer.customer_firstname}}">
-      </div>
-      <div class="form-group">
-        <label for="">Last name</label>
-        <input type="text" class="form-control" id="" name="customer_lastname" autofocus
-          value="{{this.customer.customer_lastname}}">
-      </div>
-      <div class="form-group">
-        <label for="">Phone</label>
-        <input type="text" class="form-control" id="" name="customer_phone" autofocus
-          value="{{this.customer.customer_phone}}">
-      </div>
-      <div class="form-group">
-        <label for="">Email</label>
-        <input type="email" class="form-control" id="" name="customer_mail" autofocus
-          value="{{this.customer.customer_mail}}">
-      </div>
-       <div class="form-group">
-        <label for="">Street</label>
-        <input type="text" class="form-control" id="" name="customer_street" autofocus
-          value="{{this.customer.customer_street}}">
-      </div>
-       <div class="form-group">
-        <label for="">City</label>
-        <input type="text" class="form-control" id="" name="customer_city" autofocus
-          value="{{this.customer.customer_city}}">
-      </div>
-       <div class="form-group">
-        <label for="">State</label>
-        <input type="text" class="form-control" id="" name="customer_state" autofocus
-          value="{{this.customer.customer_state}}">
-      </div>
-      <a class="btn btn-success" href="/admin/customers" role="button" title="Back to List">
-        <i class="fa fa-backward" aria-hidden="true"></i>
-      </a>
-      {{!-- <button type="submit" class="btn btn-danger" title="Remove customer" formaction="/admin/categories/del">
-        <i class="fa fa-trash" aria-hidden="true"></i>
-      </button> --}}
-      <button type="submit" class="btn btn-primary" formaction="/admin/customers/update">
-        <i class="fa fa-check" aria-hidden="true"></i>
-        Save
-      </button>
-    </form>
-  </div>
-  <div class="card-footer text-muted">
-    Footer
+  <div class="card">
+    <div class="card-header">
+      <h4>Edit customer information</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+        <div class="form-group">
+          <label for="txtCatID">#</label>
+          <input type="text" class="form-control" id="txtCatID" name="customer_id" readonly
+            value="{{this.customer.customer_id}}">
+        </div>
+        <div class="form-group">
+          <label for="">First name</label>
+          <input type="text" class="form-control" id="" name="customer_firstname" autofocus
+            value="{{this.customer.customer_firstname}}">
+        </div>
+        <div class="form-group">
+          <label for="">Last name</label>
+          <input type="text" class="form-control" id="" name="customer_lastname" autofocus
+            value="{{this.customer.customer_lastname}}">
+        </div>
+        <div class="form-group">
+          <label for="">Phone</label>
+          <input type="text" class="form-control" id="" name="customer_phone" autofocus
+            value="{{this.customer.customer_phone}}">
+        </div>
+        <div class="form-group">
+          <label for="">Email</label>
+          <input type="email" class="form-control" id="" name="customer_mail" autofocus
+            value="{{this.customer.customer_mail}}">
+        </div>
+        <div class="form-group">
+          <label for="">Region</label>
+          <select class="form-control" id="customer_state" name="customer_state">
+            <option value="{{this.customer.customer_state}}">{{this.customer.state_name}}</option>
+            {{#each this.state_list}}
+            <option value="{{state_id}}">{{state_name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="">City</label>
+          <select class="form-control" id="customer_city" name="customer_city" >
+            <option value="{{this.customer.customer_city}}" >{{this.customer.city_name}}</option>
+            {{!-- {{#each this.city_list}}
+            <option value="{{city_id}}">{{city_name}}</option>
+            {{/each}} --}}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="">Street + ZIP Code</label>
+          <input type="text" class="form-control" id="" name="customer_street" autofocus
+            value="{{this.customer.customer_street}}">
+        </div>
+
+
+        <a class="btn btn-success" href="/admin/customers" role="button" title="Back to List">
+          <i class="fa fa-backward" aria-hidden="true"></i>
+        </a>
+        {{!-- <button type="submit" class="btn btn-danger" title="Remove customer" formaction="/admin/categories/del">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button> --}}
+        <button type="submit" class="btn btn-primary" formaction="/admin/customers/update">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Save
+        </button>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      Footer
+    </div>
   </div>
 </div>
-</div>
+
+{{#section 'scripts'}}
+<script> 
+  function Ajax(condition){
+  $.ajax({
+      type: "post",
+      url: '/admin/other/city',
+      data: {state_id:condition},
+      success: function (result) {
+        city_list=JSON.parse(result.city_list);
+        for(let i=0;i<city_list.length; i++)
+        {
+         
+          $('#customer_city').append(` <option value="${city_list[i].city_id}" >${city_list[i].city_name}</option>`)
+        }
+
+      }
+         })
+  }
+   $(document).ready(function () {
+   const state_id=$("#customer_state").val();
+  
+       Ajax(state_id)
+
+      $( "#customer_state" ).change(function() {
+        const state_id=$(this).val();
+         $('#customer_city').empty()
+       Ajax(state_id)
+
+  });
+
+
+
+  })
+</script>
+
+
+{{/section}}

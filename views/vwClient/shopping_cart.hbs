@@ -1,0 +1,155 @@
+<section class="pt-5 pb-5 receiption">
+  <div class="container">
+    <div class="row w-100">
+      <div class="col-lg-12 col-md-12 col-12">
+        <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
+        <p class="mb-5 text-center">
+          <i class="text-info font-weight-bold">3</i> items in your cart
+        </p>
+        <table id="shoppingCart" class="table table-condensed table-responsive">
+          <thead>
+            <tr>
+              <th style="width:60%">Product</th>
+              <th style="width:12%">Price</th>
+              <th style="width:10%">Quantity</th>
+              <th style="width:10%" class="text-center">Total</th>
+              <th style="width:16%"></th>
+            </tr>
+          </thead>
+          <tbody id="items">
+
+
+          </tbody>
+        </table>
+        <div class="float-right text-right">
+          <h4>Subtotal:</h4>
+          <h1 id="Subtotal">$99.00</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 d-flex align-items-center">
+      <div class="col-sm-6 order-md-2 text-right" id="Checkout">
+        <a href="/checkout" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+      </div>
+      <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+        <a href="/index">
+          <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  var cartItems = document.getElementById("items")
+  for (let i = 0; i < localStorage.length; i++) {
+    addtoCart(ParseJSON(i))
+  }
+
+  function ParseJSON(i) {
+    var key = localStorage.key(i)
+    var price = JSON.parse(localStorage.getItem(localStorage.key(i))).product_price
+    var image = JSON.parse(localStorage.getItem(localStorage.key(i))).product_image
+    var quantity = JSON.parse(localStorage.getItem(localStorage.key(i))).quantity
+    var name = JSON.parse(localStorage.getItem(localStorage.key(i))).product_name
+    var brand = JSON.parse(localStorage.getItem(localStorage.key(i))).product_brand
+    var array_information = [key, price, image, quantity, name, brand]
+    return (array_information)
+  }
+
+  function addtoCart(array_information) {
+
+    var id = array_information[0]
+    var price = array_information[1]
+    var image = array_information[2]
+    var quantity = array_information[3]
+    var name = array_information[4]
+    var brand = array_information[5]
+    var cartRow = document.createElement('tr')
+    cartRow.innerHTML = ` 
+       <tr >
+              <td data-th="Product">
+                <div class="row">
+                  <div class="col-md-3 text-left">
+                    <img src="/public/images/${image}" alt=""
+                      class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                  </div>
+                  <div class="col-md-9 text-left mt-sm-2 info_product ">
+                    <h4>${name}</h4>
+                    <p class="font-weight-light">${brand}</p>
+                  </div>
+                </div>
+              </td>
+              <td data-th="Price">$${price}</td>
+              <td data-th="Quantity">
+                <input type="number" class="form-control form-control-lg text-center quantity" id="${id}" value="${quantity}" min="1" max="10">
+              </td>
+              <td data-th="Total" class="text-center total">$${price * quantity}</td>
+              <td class="actions" data-th="">
+                <div class="text-right">
+                  {{!-- <button class="btn btn-white border-secondary bg-white btn-md mb-2 refresh">
+                                    <i class="fa fa-refresh"></i>
+                                </button> --}}
+                  <button class="btn btn-white border-secondary bg-white btn-md mb-2 delete" value='${id}'>
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+   `;
+    cartItems.appendChild(cartRow);
+  }
+</script>
+
+<script>
+
+  var total = document.getElementsByClassName("total")
+  var id_list = document.getElementsByClassName("quantity")
+
+
+
+  function updateCart() {
+    var Subtotal = 0;
+    for (let i = 0; i < total.length; i++) {
+      Subtotal += parseInt((total[i].innerText).substring(1))
+    }
+    document.getElementById("Subtotal").innerText = "$" +Subtotal
+    if(Subtotal == 0)
+    {
+     
+       document.getElementById("Checkout").style.cssText = "display:none"
+    }
+  }
+
+  updateCart()
+
+  var max = 10;
+  $(".quantity").bind("click change",function () {
+    var id_clicked = this.id
+    var quantity_clicked = this.value
+    var price_clicked;
+    if (quantity_clicked >= max) {
+      quantity_clicked = max;
+    }
+
+    var obj = JSON.parse(localStorage.getItem(id_clicked))
+    obj.quantity = parseInt(quantity_clicked) 
+    price_clicked = obj.product_price
+    window.localStorage.setItem(id_clicked, JSON.stringify(obj))
+    for (let i = 0; i < total.length; i++) {
+      if (id_list[i].id == id_clicked) {
+        total[i].innerText = "$" + price_clicked * quantity_clicked
+      }
+    }
+  updateCart()
+  })
+
+  $(".delete").click(function(){
+    
+    localStorage.removeItem(this.value);
+    location.reload();
+  })
+
+
+
+</script>

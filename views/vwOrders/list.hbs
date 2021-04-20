@@ -28,6 +28,7 @@
           <th scope="col">Name</th>
           <th scope="col">Phone</th>
           <th scope="col">Date</th>
+          <th scope="col">Estimate date delivery</th>
           <th scope="col">Total</th>
           <th scope="col">Status</th>
           <th scope="col">Payment</th>
@@ -45,8 +46,9 @@
               style="text-decoration: none; color:black">{{customer_lastname}} {{customer_firstname}}</a></td>
           <td>{{customer_phone}}</td>
           <td>{{order_date}}</td>
+          <td>{{ order_estimated_date}}</td>
           <td>{{Total}}</td>
-          <td>{{order_status}}</td>
+          <td>{{status_name}}</td>
           <td>{{payment_name}}</td>
 
 

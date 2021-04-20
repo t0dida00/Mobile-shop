@@ -59,6 +59,7 @@ router.get('/edit/:id', async function (req, res) {
 
 router.post('/update', async function (req, res) {
   
+
  
   const rows = await productModel.single(req.body.product_id);
   if(req.body.product_image=="")

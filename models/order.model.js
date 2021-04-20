@@ -4,13 +4,16 @@ const TBL_CATEGORIES = 'orders';
 
 module.exports = {
   all: function () {
-    return db.load(`SELECT orders.*, payment_name,customers.*,
+    return db.load(`SELECT *,
     Sum(products.product_price * order_items.quantity) AS Total
     FROM ${TBL_CATEGORIES}
     INNER JOIN payments ON orders.order_payment = payments.payment_id
     INNER JOIN order_items ON order_items.order_id = orders.order_id
     INNER JOIN products ON products.product_id = order_items.product_id
     INNER JOIN customers ON customers.customer_id = orders.customer_id
+    INNER JOIN state ON state.state_id=customers.customer_state
+    INNER JOIN city ON city.city_id=customers.customer_city
+    INNER JOIN status ON status.status_id=orders.order_status
      GROUP  BY orders.order_id
      ORDER BY order_date DESC`);
   },

@@ -1,0 +1,167 @@
+<div class="container-fluid content" id="home">
+    <div class="row">
+        <div class="col-2 ">
+            <div class="card shadow mt-3 filter ">
+                <div class="card-header text-center" style="font-weight: bold;">
+                    Filter
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="price" id="default" value="" checked>
+                                <label class="form-check-label" for="default">
+                                    Default
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="price" id="price_ins"
+                                    value="order by product_price">
+                                <label class="form-check-label" for="price_ins">
+                                    Price increase
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="price" id="price_down"
+                                    value="order by product_price desc">
+                                <label class="form-check-label" for="price_down">
+                                    Price decrease
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="price" id="banchay"
+                                    value="order by product_sell desc">
+                                <label class="form-check-label" for="banchay">
+                                    Ban chay lam ne
+                                </label>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="col-6">
+                            {{#if flag}}
+                            {{#each lcCategories}}
+                            <div class="form-check">
+                                <input type="checkbox" id="category_filter" name="filter"
+                                    value="{{category_id}}-product_category_id-product_brand_id"
+                                    class="form-check-input">
+                                <label for="vehicle1">{{category_name}}</label><br>
+
+                            </div>
+                            {{/each}}
+                            {{else}}
+
+                            {{#each lcBrands}}
+                            <div class="form-check">
+                                <input type="checkbox" id="brand_filter" name="filter"
+                                    value="{{brand_id}}-product_brand_id-product_category_id" class="form-check-input">
+                                <label for="vehicle1">{{brand_name}}</label><br>
+
+                            </div>
+                            {{/each}}
+                            {{/if}}
+
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="search" id="search"> <input type="submit" value="Search"></div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-10">
+            <div class="text-center mt-3">
+                <div class="title">
+                    Product
+                </div>
+            </div>
+            <div class="container-flex" id="list_product">
+
+                <div class="loading">
+                    <div class="ball"></div>
+                    <div class="ball"></div>
+                    <div class="ball"></div>
+                </div>
+
+            </div>
+            <div class="footer_customer">
+                <p class="text-center">End</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var JSONarray = decodeURIComponent("{{{encodedJson}}}");
+
+    var radios = document.getElementsByName('price');
+    var radios2 = document.getElementsByName('filter');
+    var id_filter = "{{this.id_filter}}";
+    var flag2 = radios2[0].value.split("-")[2];
+    $("#search").click(function () {
+        var price_filter;
+        var brand_category_filter = "0";
+        var flag1;
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked && radios[i].value) {
+                // do whatever you want with the checked radio
+                price_filter = radios[i].value;
+
+                // only one radio can be logically checked, don't check the rest
+                break;
+            }
+        }
+
+        for (let i = 0, length = radios2.length; i < length; i++) {
+
+            if (radios2[i].checked && radios2[i].value) {
+                flag1 = radios2[i].value.split("-")[1];
+
+                brand_category_filter = brand_category_filter + "," + (parseInt(radios2[i].value))
+
+                // only one radio can be logically checked, don't check the rest
+
+            }
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '/filter',
+            data: { price_filter: price_filter, brand_category_filter: brand_category_filter, flag1: flag1, flag2: flag2, id_filter: id_filter },
+            success: function (result) {
+                
+                const container = document.getElementById('list_product');
+                
+                $('#list_product').empty()
+                var JSONarray_filter = JSON.parse(result.list_product)
+               console.log(JSONarray_filter,JSONarray_filter.length)
+                for(let i = 0 ; i<JSONarray_filter.length;i++)
+                {
+
+                
+                const postElement = document.createElement('div');
+                postElement.style.cssText = "width: 18rem;"
+                postElement.classList.add('card', 'product');
+                postElement.innerHTML = `
+    
+    <img src="/public/images/${JSONarray_filter[i].product_image}" class="card-img-top" alt="...">
+    <div class="card-body text-center">
+        <h5 class="card-title">${JSONarray_filter[i].product_name}</h5>
+        <p class="card-text" style="font-size:20px">${JSONarray_filter[i].product_price}</p>
+          <a href="/product/?id=${JSONarray.product_id}&idCate=${JSONarray.product_category_id}" class="btn btn-primary">Detail</a>
+    </div>
+	`;
+
+                container.appendChild(postElement);
+            }
+            }
+        })
+    });
+
+</script>

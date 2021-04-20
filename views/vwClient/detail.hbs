@@ -1,0 +1,102 @@
+<div class="container detail" style="width: 50%">
+  <div class="row product_card">
+    <div class="col-md-6">
+      <img src="/public/images/{{this.product.product_image}}" style="width: 30rem;" />
+    </div>
+    <div class="col-md-6">
+      <div class="product_information">
+        <div class="product_name">{{this.product.product_name}}</div>
+        <div class="product_price">
+          <p>{{this.product.product_price}}$</p>
+        </div>
+        <div class="product_description">
+          <div class="row" style="font-size: 20px; font-weight:bold">
+            <div class="col-6">
+
+              Category: {{this.product.category_name}}
+
+            </div>
+            <div class="col-6">
+
+              Brand: {{this.product.brand_name}}
+
+            </div>
+          </div>
+        </div>
+        <div class="product_description">
+          <p>
+            {{this.product.product_description}}
+          </p>
+        </div>
+      </div>
+      <div class="action">
+        <button class="add-to-cart btn btn-warning add-to-cart-button" id="add-to-cart-button" type="button"
+          style="width: 100%">
+          <img src="/public/images/shopping_cart.png" style="width: 25px" /> add
+          to cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <p class="text-center" style="font-weight: bold; font-size: 20px;">San pham tuong tu </p>
+  <div class="owl-carousel owl-theme">
+    {{#each this.list_product}}
+    <div class="item">
+      <div class="card product" style="width: 18rem;">
+
+        <img src="/public/images/{{product_image}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{product_name}}</h5>
+          <p class="card-text" style="font-size:20px">{{product_price}}$</p>
+          <a href="/product/?id={{product_id}}&idCate={{product_category_id}}" class="btn btn-primary">Detail</a>
+        </div>
+
+
+      </div>
+    </div>
+
+    {{/each}}
+
+
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $(".owl-carousel").owlCarousel();
+  });
+  $('.owl-carousel').owlCarousel({
+
+
+
+    items: 5
+  }
+  )
+  $("#add-to-cart-button").click(function () {
+  
+ var id_product= {{this.product.product_id}}
+    var Quantity = 0;
+    if (localStorage.getItem({{this.product.product_id}}) === null) {
+      Quantity = 1;
+    }
+    else {
+      Quantity = parseInt(JSON.parse(localStorage.getItem("{{this.product.product_id}}")).quantity) + 1
+    }
+    var obj = {
+      product_name: "{{this.product.product_name}}",
+      product_brand: "{{this.product.brand_name}}",
+      product_id:{{this.product.product_brand_id}},
+      product_price: {{this.product.product_price}},
+      product_image: "{{this.product.product_image}}",
+      quantity: Quantity
+    }
+    window.localStorage.setItem(id_product, JSON.stringify(obj))
+
+    
+    alert("Add to cart successfully !!!")
+  
+  })
+
+</script>

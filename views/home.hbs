@@ -105,8 +105,8 @@
           time2.push(orderChart[i].DataDate)
           value2.push(orderChart[i].Value)
         }
-
-
+        
+    console.log(data)
         for (let i = 0; i < data.length; i++) {
           count_total = count_total + data[i].Total
           count_order = count_order + 1
@@ -117,7 +117,7 @@
               <td>${data[i].order_date}</td>
                <td>${data[i].customer_lastname} ${data[i].customer_firstname}</td>
               <td>${data[i].customer_phone}</td>
-               <td>${data[i].customer_city}</td>
+               <td>${data[i].city_name}</td>
                <td>${data[i].Total}</td>
                 <td>${data[i].payment_name}</td>
            
@@ -211,14 +211,8 @@
 
     })
 
+
   });
-
-
-
-
-
-
-
 
 
 </script>
