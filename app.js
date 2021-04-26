@@ -118,7 +118,7 @@ app.use(function (req, res) {
 
 
 
-const PORT = 3000;
-app.listen(PORT, function () {
+const PORT1 = 3000;
+app.listen(process.env.PORT || PORT1, function () {
   console.log(`Server is running at http://localhost:${PORT}`);
 })
