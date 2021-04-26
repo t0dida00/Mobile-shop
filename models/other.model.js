@@ -41,5 +41,9 @@ module.exports = {
     WHERE product_category_id= ${id}
     ORDER BY RAND ( )  
     LIMIT 10`)
+  },
+  getStatus:function()
+  {
+    return db.load(`select * from status`);
   }
 };

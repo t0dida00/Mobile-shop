@@ -51,29 +51,32 @@ app.use(async function(req,res,next){
 
 app.use('/', require('./routes/client.route'));
 
-// app.use('/', require('./routes/account.route'));
+app.use('/admin', require('./routes/account.route'));
 
+app.use('/admin/other', require('./routes/other.route'));
 
-// app.use(function(req,res,next){
+app.use('/admin/orders', require('./routes/order.route'));
+
+app.use(function(req,res,next){
  
-//   res.locals.user= req.session.authUser;
-//   res.locals.admin=req.session.admin;
+  res.locals.user= req.session.authUser;
+  res.locals.admin=req.session.admin;
 
-//   next();
+  next();
   
-// })
+})
 
 
-// app.use(function(req,res,next){
+app.use(function(req,res,next){
   
-//   if(!req.session.isAuthenticated)
-//   {
+  if(!req.session.isAuthenticated)
+  {
 
-//     return res.redirect("/admin/login")
-//   }
-//   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-//   next();
-// })
+    return res.render("vwAccount/login")
+  }
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+})
 app.use(cors());
 
 app.get('/admin/home', function (req, res) {
@@ -95,12 +98,11 @@ app.get('/bs', function (req, res) {
 
 app.use('/admin/categories', require('./routes/category.route'));
 app.use('/admin/products', require('./routes/product.route'));
-app.use('/admin/orders', require('./routes/order.route'));
+// app.use('/admin/orders', require('./routes/order.route'));
 app.use('/admin/customers', require('./routes/customer.route'));
 app.use('/admin/brands', require('./routes/brand.route'));
 app.use('/admin/accounts', require('./routes/admin.route'));
-app.use('/admin/orders', require('./routes/order.route'));
-app.use('/admin/other', require('./routes/other.route'));
+
 
 
 

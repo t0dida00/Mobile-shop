@@ -94,19 +94,7 @@ router.get('/', async function (req, res) {
     res.render('vwAccount/add');
   })
   
-//   router.post('/add', async function (req, res) {
-//     const username = req.body.username
-//     const check= await userModel.singleByUserName(username)
-  
-//     if(check.length !== 0)
-//     {
-//       req.session.err="Username is availabel !"
-//      return res.redirect('/admin/accounts');
-//     }
-//     await userModel.add(req.body);
-//     req.session.success="Add new user successfully !"
-//     res.redirect('/admin/brands');
-//   })
+
   router.post('/del', async function (req, res) {
   
    

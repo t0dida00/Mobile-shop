@@ -31,6 +31,8 @@ router.get('/edit/:id', async function (req, res) {
     res.render('vwCustomers/edit', { customer,state_list });
   })
 
+  
+
   router.post('/update', async function (req, res) {
     
     await customerModel.patch(req.body);

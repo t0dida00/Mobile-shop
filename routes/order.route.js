@@ -2,13 +2,13 @@ const express = require('express');
 const orderModel = require('../models/order.model');
 var moment = require('moment');  
 const customerModel = require('../models/customer.model');
-
+const otherModel=require('../models/other.model');
 const router = express.Router();
 
 
 router.get('/',async function(req,res){
     const list = await orderModel.all();
- 
+    const list_status= await otherModel.getStatus();
  for(let i = 0; i < list.length; i++)
 {
     list[i].order_date=moment(list[i].order_date).format('DD-MM-YYYY');
@@ -18,7 +18,8 @@ router.get('/',async function(req,res){
     orders: list,
     empty: list.length === 0,
     err:req.session.err,
-    success: req.session.success
+    success: req.session.success,
+    list_status:list_status
     
   });
   delete req.session.err
@@ -38,7 +39,11 @@ router.post('/del', async function (req, res) {
  req.session.success="Delete order successfully !"
  res.redirect('/admin/orders/');
 })
-
+router.post('/update',async function(req,res){
+  
+  await orderModel.patch(req.body);
+  res.send("Successful !")
+})
 router.get('/overview',async function(req,res)
 {
   const list_order = await orderModel.all();

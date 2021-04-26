@@ -1,3 +1,4 @@
+ 
 <div class="container"
   style="margin-top: 50px; margin-bottom: 50px; min-height: 80vh; padding: 2em ; border: 1px solid;">
   <h4 class="text-center">Customer Information</h4>
@@ -70,7 +71,9 @@
       url: '/admin/other/city',
       data: { state_id: condition },
       success: function (result) {
+      
         city_list = JSON.parse(result.city_list);
+
         for (let i = 0; i < city_list.length; i++) {
 
           $('#customer_city').append(` <option value="${city_list[i].city_id}" >${city_list[i].city_name}</option>`)

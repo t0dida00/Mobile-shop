@@ -26,6 +26,9 @@ module.exports = {
   add: function (entity) {
     return db.add(TBL_CATEGORIES, entity);
   },
+  addOrderItems: function (entity) {
+    return db.add('order_items', entity);
+  },
   patch: function (entity) {
     const condition = {
       order_id: entity.order_id
@@ -50,9 +53,21 @@ FROM ${TBL_CATEGORIES}
 INNER JOIN payments ON orders.order_payment = payments.payment_id
 INNER JOIN order_items ON order_items.order_id = orders.order_id
 INNER JOIN products ON products.product_id = order_items.product_id
-WHERE customer_id = ${customer_id} GROUP  BY orders.order_id `);
+WHERE customer_id = ${customer_id} GROUP BY orders.order_id`);
   },
-
+  searchByPhone: function(phone){
+  
+    return db.load(`
+SELECT *,
+Sum(products.product_price * order_items.quantity) AS Total
+FROM ${TBL_CATEGORIES}
+INNER JOIN payments ON orders.order_payment = payments.payment_id
+INNER JOIN order_items ON order_items.order_id = orders.order_id
+INNER JOIN products ON products.product_id = order_items.product_id
+INNER JOIN customers ON customers.customer_id=orders.customer_id
+INNER JOIN status ON status.status_id=orders.order_status
+WHERE customer_phone = ${phone} GROUP  BY orders.order_id  ORDER BY orders.order_id DESC`);
+  },
   getValueforChart: function(){
     return db.load(`SELECT
     DISTINCT(substring(order_date,1,7)) AS DataDate,

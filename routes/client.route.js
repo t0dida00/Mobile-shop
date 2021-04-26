@@ -4,15 +4,18 @@ const otherModel= require("../models/other.model")
 
 const customerModel= require("../models/customer.model")
 
+const orderModel= require("../models/order.model")
+var moment = require('moment');  
 const router = express.Router();
 
 router.get('/index', async function (req, res) {
   
   const product_list= await otherModel.getProduct();
  
-  res.render('vwClient/index',{layout:'index', encodedJson : encodeURIComponent(JSON.stringify(product_list))})
- 
-  
+  res.render('vwClient/index',{layout:'index', 
+  encodedJson : encodeURIComponent(JSON.stringify(product_list))
+})
+
 })
 router.get('/list/:query?', async function (req, res) {
  
@@ -50,9 +53,13 @@ router.get('/product/:id?', async function (req, res) {
 router.get('/shopping-cart', async function (req, res) {
   
   
-  return res.render('vwClient/shopping_Cart',{layout:'index'})
-                                                         
+ res.render('vwClient/shopping_Cart',{layout:'index',
+  err:req.session.err,
+  success: req.session.success
+})
 
+ delete req.session.err
+ delete req.session.success
 })
 
 router.get('/checkout',async function(req,res){
@@ -62,6 +69,37 @@ router.get('/checkout',async function(req,res){
   return res.render('vwClient/information',{layout:'index',state_list})
 })
   
+
+router.get('/search?', async function(req,res)
+{
+  const data= req.query.customer_phone
+  
+  if(data )
+  { 
+    const list = await orderModel.searchByPhone(data);
+ 
+ for(let i = 0; i < list.length; i++)
+{
+    list[i].order_date=moment(list[i].order_date).format('DD-MM-YYYY');
+    list[i].order_estimated_date=moment(list[i].order_estimated_date).format('DD-MM-YYYY');
+}
+ return res.render('vwClient/search', {
+  layout:"index",
+  list: list,
+  empty: list.length === 0,
+});
+  }
+
+ return res.render('vwClient/search',{layout:'index'})
+})
+router.post('/del', async function (req, res) {
+ 
+  await orderModel.del(req.body.order_id);
+  req.session.success="Delete order successfully !"
+  return res.redirect(`/search?customer_phone=${req.body.customer_phone1}`);
+
+ })
+ 
 router.post('/checkout',async function(req,res){
 
   
@@ -74,21 +112,24 @@ router.post('/checkout',async function(req,res){
   delete req.body.payment
   //Change string to array
   var array_id_product=id_product_list.split(",");
-  var array_quantity_lis = quantity_product_list.split(",")
+  var array_quantity_list = quantity_product_list.split(",")
+  //temp
+  var id_customer = 13;
+  var order_id=13;
   //Check if customer is exists
   const check_data=await customerModel.getCustomerByPhoneOrEmail(req.body.customer_phone,req.body.customer_mail)
   if(check_data.length !=0)
   {
     //Neu ton` tai. thi` lay id nay va cap nhat don hang
-    console.log(check_data[0].customer_id)
+   
+    id_customer=check_data[0].customer_id
   }
   else{
     //Neu chua co thi tao moi o day
+    const customer= await customerModel.add(req.body);
    
-    //Tao moi xong thi lay ID lon nhat de cap nhat vao order
-    //const customer= await customerModel.add(req.body);
-   
-      //console.log(customer.insertId)
+     
+      id_customer=customer.insertId
   }
  
   //conditions for create new order
@@ -101,7 +142,7 @@ router.post('/checkout',async function(req,res){
 
  
   const order_condition={
-    customer_id : 13,
+    customer_id : id_customer,
     order_date :today,
     order_status: 1,
     order_payment: payment,
@@ -109,9 +150,28 @@ router.post('/checkout',async function(req,res){
 
   }
 
- console.log(order_condition)
+  const order= await orderModel.add(order_condition)
+  order_id = order.insertId
+  //condition for create order_item
+for(let i = 0 ;i<array_id_product.length;i ++)
+{
+  const order_items_condition={
+    order_id: order_id,
+    product_id:parseInt(array_id_product[i]),
+    quantity: parseInt(array_quantity_list[i])
 
- // console.log(req.body) // condition for create new customer
+  }
+
+  const order_items= await orderModel.addOrderItems(order_items_condition)
+
+  
+}
+
+
+req.session.success="Checkout successfully !"
+
+ res.redirect('/shopping-cart');
+
 
 })
 router.post('/filter', async function (req, res) {
