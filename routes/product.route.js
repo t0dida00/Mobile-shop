@@ -30,10 +30,10 @@ router.get('/add', async function (req, res) {
   });
 })
 
-router.post('/add', async function (req, res) {
+router.post('/add',upload.single('product_image'), async function (req, res) {
  
   await productModel.add(req.body);
- 
+  req.body.product_image= req.file.filename
   req.session.success="Add new product successfully !"
   res.redirect('/admin/products');
 })
