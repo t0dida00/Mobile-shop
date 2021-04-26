@@ -118,7 +118,8 @@ app.use(function (req, res) {
 
 
 
-const PORT1 = 3000;
-app.listen(process.env.PORT || PORT1, function () {
-  console.log(`Server is running at http://localhost:${PORT}`);
+const PORT = process.env.PORT || 3000
+
+app.listen( PORT, function () {
+  console.log(`Server running at port `+PORT);
 })
