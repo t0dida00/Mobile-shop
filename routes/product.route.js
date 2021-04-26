@@ -2,6 +2,10 @@ const express = require('express');
 const productModel = require('../models/product.model');
 const brandModel = require('../models/brand.model');
 const categoryModel = require('../models/category.model');
+const moveFile = require('move-file');
+const path = require('path')
+var multer  = require('multer')
+var upload = multer({ dest: './public/images/' })
 
 const router = express.Router();
 
@@ -29,6 +33,7 @@ router.get('/add', async function (req, res) {
 router.post('/add', async function (req, res) {
  
   await productModel.add(req.body);
+ 
   req.session.success="Add new product successfully !"
   res.redirect('/admin/products');
 })
@@ -57,14 +62,18 @@ router.get('/edit/:id', async function (req, res) {
   res.render('vwProducts/edit', { products, brands ,categories });
 })
 
-router.post('/update', async function (req, res) {
+router.post('/update',upload.single('product_image'), async function (req, res) {
   
-
- 
+  
+  
   const rows = await productModel.single(req.body.product_id);
+  
   if(req.body.product_image=="")
   {
     req.body.product_image= rows[0].product_image
+  }
+  else{
+    req.body.product_image= req.file.filename
   }
   await productModel.patch(req.body);
   req.session.success="Update product information successfully !"

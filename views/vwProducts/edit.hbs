@@ -4,7 +4,7 @@
             <h4>Edit Product Information</h4>
         </div>
         <div class="card-body">
-            <form action="" method="post">
+            <form action="" method="post"  enctype="multipart/form-data"  >
                 <div class="form-row">
                     <div class="col-md-4 mb-3"></div>
                     <div class="col-md-4 mb-3">
@@ -12,7 +12,7 @@
                         <div class="input-group">
                             <img id="blah" src="/public/images/{{this.products.product_image}}"
                                 style="max-width:180px;" />
-                            <input type='file' onchange="readURL(this);" id="product_image" name="product_image"
+                            <input type='file' onchange="readURL(this);" id="product_image" name="product_image" value="{{this.products.product_image}}"
                                title="" style="color: transparent; text-align:center" />
 
 
@@ -95,9 +95,12 @@
                 $('#blah')
                     .attr('src', e.target.result);
             };
-
+          
+            
             reader.readAsDataURL(input.files[0]);
         }
 
     }
+   
+    
 </script>
