@@ -53,7 +53,7 @@ router.get('/product/:id?', async function (req, res) {
 router.get('/shopping-cart', async function (req, res) {
   
   
- res.render('vwClient/shopping_Cart',{layout:'index',
+ res.render('vwClient/shopping_cart',{layout:'index',
   err:req.session.err,
   success: req.session.success
 })
