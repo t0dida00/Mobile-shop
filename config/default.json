@@ -1,10 +1,10 @@
 {
   "mysql": {
-    "host": "localhost",
+    "host": "heroku_7c1036cfe5e9742",
     "port": 3306,
-    "user": "root",
-    "password": "",
-    "database": "project2",
+    "user": "bfe4c28c742312",
+    "password": "b541769b",
+    "database": "heroku_7c1036cfe5e9742",
     "connectionLimit": 50
   },
   "authenticate": {
