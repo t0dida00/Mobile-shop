@@ -67,12 +67,13 @@ router.post('/update',upload.single('product_image'), async function (req, res) 
   
   
   const rows = await productModel.single(req.body.product_id);
-  
+ 
+ 
   if(req.body.product_image=="")
   {
     req.body.product_image= rows[0].product_image
   }
-  else{
+  else if(req.file){
     req.body.product_image= req.file.filename
   }
   await productModel.patch(req.body);
