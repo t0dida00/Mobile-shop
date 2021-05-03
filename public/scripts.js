@@ -1,6 +1,6 @@
 
 
-//Infinite scroll
+//Infinite scroll -- lazy loading
 const container = document.getElementById('list_product');
 const loading = document.querySelector('.loading');
 const footer_customer=document.querySelector('.footer_customer')
@@ -75,4 +75,4 @@ function addDataToDOM(JSONarray) {
 }
 
 
-
+//----
