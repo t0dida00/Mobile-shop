@@ -1,1 +1,1 @@
-# project-2
+# Mobile shop application
