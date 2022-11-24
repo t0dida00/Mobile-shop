@@ -1,4 +1,13 @@
 # Mobile shop application
+The web application was designed by MVC pattern, Nodejs - ExpressJS and Handlebars for engine view.
+The features:
++Filter product tyes
++Login/Logout for admin
++Javascript charts
++Table library
++Pagnigation library
++ CRUD functions.
+
 Some images about project
 ![image](https://user-images.githubusercontent.com/70305254/200438034-416adc20-e4e0-44da-8c61-a470ff096abb.png)
 ![image](https://user-images.githubusercontent.com/70305254/200438095-59dca07e-86ad-4ccd-a187-7a3230364ad3.png)
