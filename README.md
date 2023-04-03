@@ -17,12 +17,17 @@ The features:
 
 Username/password admin: admin/admin
 
-URL: 
+URL_1 : 
 
 Client: https://mobile-shop-xs9a.onrender.com/index
 
 Admin: https://mobile-shop-xs9a.onrender.com/
 
+URL_2 :
+
+Client: https://kind-jade-whale-veil.cyclic.app/index
+
+Admin: https://kind-jade-whale-veil.cyclic.app/
 
 Some images about project
 ![image](https://user-images.githubusercontent.com/70305254/200438034-416adc20-e4e0-44da-8c61-a470ff096abb.png)
